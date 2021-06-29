@@ -26,3 +26,6 @@ jobs:
     - name: Build with Maven
       working-directory: ${{ matrix.dir }}
       run: mvn -B package --file pom.xml
+    - name: Test with Maven
+      working-directory: ${{ matrix.dir }}
+      run: mvn -B test --file pom.xml
