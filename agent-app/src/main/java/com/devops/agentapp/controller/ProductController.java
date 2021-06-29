@@ -1,5 +1,7 @@
 package com.devops.agentapp.controller;
 
+import lombok.RequiredArgsConstructor;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,9 @@ import com.devops.agentapp.model.Product;
 import com.devops.agentapp.service.ProductService;
 import com.devops.agentapp.exception.ProductNotFoundException;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 
 @RestController
@@ -45,16 +49,16 @@ public class ProductController {
 	
 	@PutMapping("/{id}")
 	public Product updateProduct(@RequestBody Product newProduct, @PathVariable Integer id) {
-		productService.findById(id)
+		Product product = productService.findById(id)
 			      .orElseThrow(() -> new ProductNotFoundException(id));
-		newProduct.setId(id);
+		newProduct.setId(product.getId());
 		return productService.save(newProduct);
 	}
 	
 	@DeleteMapping("/{id}")
-	void deleteEmployee(@PathVariable Integer id) {
-		productService.findById(id)
+	public void deleteEmployee(@PathVariable Integer id) {
+		Product product = productService.findById(id)
 			      .orElseThrow(() -> new ProductNotFoundException(id));
-		productService.deleteById(id);
+		productService.deleteById(product.getId());
 	}
 }
