@@ -15,6 +15,9 @@
 	<description>agent-app</description>
 	<properties>
 		<java.version>11</java.version>
+		<sonar.projectKey>NikolinaDEVOPS_AgentApplication</sonar.projectKey>
+		<sonar.organization>nikolinadevops</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<dependencies>
 		<dependency>
