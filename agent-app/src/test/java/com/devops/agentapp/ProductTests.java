@@ -1,5 +1,6 @@
 package com.devops.agentapp;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -14,6 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.devops.agentapp.model.Product;
+import com.devops.agentapp.model.ProductOrder;
+import com.devops.agentapp.repository.ProductOrderRepository;
 import com.devops.agentapp.repository.ProductRepository;
 
 @RunWith(SpringRunner.class)
@@ -24,6 +27,9 @@ public class ProductTests {
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private ProductOrderRepository orderRepository;
 	
 	@Before
 	public void setUp() {
@@ -56,5 +62,27 @@ public class ProductTests {
 	public void delete() {
 		productRepository.deleteById(1);
 		Product product = productRepository.findById(1).get();
+	}
+	
+	@Test
+	public void order() {
+		Product p =  productRepository.findById(2).get();
+		ArrayList<Product> products = new ArrayList<>();
+		products.add(p);
+		ProductOrder order = new ProductOrder(null, "Name", "Lastname", "Address", 200.00, products);
+		ProductOrder ord = orderRepository.save(order);
+		
+		assertEquals(order.getId(), ord.getId());
+	}
+	
+	@Test(expected=NoSuchElementException.class)
+	public void orderFailed() {
+		Product p =  productRepository.findById(21).get();
+		ArrayList<Product> products = new ArrayList<>();
+		products.add(p);
+		ProductOrder order = new ProductOrder(null, "Name", "Lastname", "Address", 200.00, products);
+		ProductOrder ord = orderRepository.save(order);
+		
+		assertEquals(order.getId(), ord.getId());
 	}
 }
