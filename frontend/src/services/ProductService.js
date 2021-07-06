@@ -16,6 +16,9 @@ class ProductService {
   delete(id) {
     return http.delete(`/product/${id}`);
   }
+  order(post) {
+    return http.post("/order/", post);
+  }
 }
 
 export default new ProductService();
