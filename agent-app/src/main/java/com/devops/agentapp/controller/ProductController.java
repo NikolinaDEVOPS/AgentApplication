@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.devops.agentapp.model.Product;
 import com.devops.agentapp.service.ProductService;
@@ -25,7 +27,7 @@ import org.springframework.http.ResponseEntity;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping(value = "/product")
 public class ProductController {
 	@Autowired
@@ -51,8 +53,7 @@ public class ProductController {
 	public Product updateProduct(@RequestBody Product newProduct, @PathVariable Integer id) {
 		Product product = productService.findById(id)
 			      .orElseThrow(() -> new ProductNotFoundException(id));
-		newProduct.setId(product.getId());
-		return productService.save(newProduct);
+		return productService.save(product);
 	}
 	
 	@DeleteMapping("/{id}")
