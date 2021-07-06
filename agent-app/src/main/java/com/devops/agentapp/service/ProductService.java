@@ -3,14 +3,18 @@ package com.devops.agentapp.service;
 
 import lombok.RequiredArgsConstructor;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.devops.agentapp.model.Product;
 import com.devops.agentapp.repository.ProductRepository;
 
+import org.springframework.util.StringUtils;
 
 
 @Service
